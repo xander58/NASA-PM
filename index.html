@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100 правил руководителей проектов NASA | Методология управления</title>
+    <meta name="description" content="Полное собрание из 100 проверенных правил управления проектами от NASA. Адаптировано для современных PM: планирование, риски, команда, коммуникации.">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="100 правил руководителей проектов NASA">
+    <meta property="og:description" content="Инженерная точность и дисциплина управления сложными проектами. Интерактивный справочник.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Favicon (Inline SVG) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%2300E5FF' stroke-width='6'/%3E%3Ccircle cx='50' cy='50' r='15' fill='%2300E5FF'/%3E%3Cpath d='M 50 10 A 40 40 0 0 1 90 50' fill='none' stroke='%2300E5FF' stroke-width='6' stroke-dasharray='8 8'/%3E%3C/svg%3E">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-primary: #050508;
+            --bg-secondary: #0B0D17;
+            --accent: #00E5FF;
+            --accent-dim: rgba(0, 229, 255, 0.1);
+            --text-primary: #E2E8F0;
+            --text-secondary: #94A3B8;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(0, 229, 255, 0.4);
+            --font-main: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-primary);
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+        /* Typography */
+        h1, h2, h3 { font-weight: 700; letter-spacing: -0.02em; }
+        .mono { font-family: var(--font-mono); }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(5, 5, 8, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 70px;
+            background: radial-gradient(circle at 50% 30%, #1a1f3d 0%, var(--bg-primary) 60%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--accent-dim);
+            border: 1px solid rgba(0, 229, 255, 0.3);
+            border-radius: 20px;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(to right, #fff, #94A3B8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 32px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .btn:hover {
+            box-shadow: 0 0 30px rgba(0, 229, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            margin-left: 16px;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            box-shadow: none;
+        }
+
+        /* Orbit Animation */
+        .orbit-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px dashed rgba(0, 229, 255, 0.2);
+            border-radius: 50%;
+            animation: spin 30s linear infinite;
+        }
+
+        .orbit-1 { width: 300px; height: 300px; animation-duration: 20s; }
+        .orbit-2 { width: 450px; height: 450px; animation-duration: 35s; animation-direction: reverse; }
+        .orbit-3 { width: 600px; height: 600px; animation-duration: 50s; border-style: dotted; opacity: 0.5; }
+
+        .orbit::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Highlights */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .highlight-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 24px;
+            transition: all 0.3s;
+        }
+
+        .highlight-card:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-4px);
+        }
+
+        .highlight-icon {
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: block;
+            width: 32px;
+            height: 32px;
+        }
+
+        .highlight-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .highlight-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Rules Section */
+        .rules-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .search-box {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            pointer-events: none;
+            width: 20px;
+            height: 20px;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .counter {
+            text-align: center;
+            font-family: var(--font-mono);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .rule-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .rule-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .rule-card:hover {
+            border-color: var(--border-hover);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px -10px rgba(0, 229, 255, 0.1);
+        }
+
+        .rule-number {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            display: inline-block;
+            background: var(--accent-dim);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .rule-category {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .rule-text {
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Conclusion & Footer */
+        .conclusion {
+            text-align: center;
+            background: radial-gradient(circle at 50% 100%, #1a1f3d 0%, var(--bg-primary) 70%);
+            border-top: 1px solid var(--border);
+        }
+
+        .conclusion h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .conclusion p {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        footer a:hover { 
+            opacity: 0.8;
+            text-decoration: underline; 
+        }
+
+        @media (max-width: 768px) {
+            .rules-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5rem; }
+            .orbit-container { display: none; }
+            .btn-outline { margin-left: 0; margin-top: 16px; display: block; width: 100%; text-align: center; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <!-- Logo SVG: Orbital Target -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <circle cx="12" cy="12" r="6"/>
+                        <circle cx="12" cy="12" r="2"/>
+                        <line x1="12" y1="2" x2="12" y2="6"/>
+                        <line x1="12" y1="18" x2="12" y2="22"/>
+                        <line x1="2" y1="12" x2="6" y2="12"/>
+                        <line x1="18" y1="12" x2="22" y2="12"/>
+                    </svg>
+                    NASA_PM_RULES
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#intro">О проекте</a></li>
+                    <li><a href="#highlights">Принципы</a></li>
+                    <li><a href="#rules">Правила</a></li>
+                    <li><a href="#footer">Оригинал</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="hero">
+        <div class="orbit-container">
+            <div class="orbit orbit-1"></div>
+            <div class="orbit orbit-2"></div>
+            <div class="orbit orbit-3"></div>
+        </div>
+        <div class="container hero-content">
+            <div class="hero-badge">MISSION CONTROL PROTOCOL</div>
+            <h1>100 правил руководителей проектов NASA</h1>
+            <p>Инженерная точность, дисциплина и проверенные временем принципы управления сложными проектами. Адаптировано для современных реалий.</p>
+            <div>
+                <a href="#rules" class="btn">
+                    Смотреть правила
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+                </a>
+                <a href="https://rolandwanner.com/wp-content/uploads/2020/08/100-rules-for-nasa-project-managers-en.pdf" target="_blank" class="btn btn-outline">Открыть оригинал (PDF)</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="intro">
+        <div class="container">
+            <div class="rules-header">
+                <h2>Почему это работает не только в космосе</h2>
+                <p style="color: var(--text-secondary); max-width: 700px; margin: 16px auto 0;">
+                    Управление космической миссией и запуск IT-продукта или строительного проекта имеют общую черту: цена ошибки крайне высока, а сложность интеграции зашкаливает. Эти правила — не теория, а выстраданная практика организаций, где «попробовать и откатить» невозможно.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="highlights" style="background: rgba(255,255,255,0.01);">
+        <div class="container">
+            <div class="rules-header">
+                <h2>Ключевые мета-принципы</h2>
+            </div>
+            <div class="highlights-grid">
+                <div class="highlight-card">
+                    <!-- Target Icon -->
+                    <svg class="highlight-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                    <h3>Раннее выявление рисков</h3>
+                    <p>Семена будущих проблем закладываются на ранних стадиях. Предварительное планирование и резервы времени — не опция, а необходимость.</p>
+                </div>
+                <div class="highlight-card">
+                    <!-- Eye Icon -->
+                    <svg class="highlight-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    <h3>Абсолютная прозрачность</h3>
+                    <p>Ничего не скрывайте от руководства и партнёров. Устанавливайте только факты, без оправданий. Репутация строится на честности.</p>
+                </div>
+                <div class="highlight-card">
+                    <!-- Gear Icon -->
+                    <svg class="highlight-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <h3>Уважение к интеграции</h3>
+                    <p>Руководитель, пытающийся быть и системным инженером, и финансовым менеджером, обречён. Доверяйте специалистам их работу.</p>
+                </div>
+                <div class="highlight-card">
+                    <!-- Antenna Icon -->
+                    <svg class="highlight-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+                    <h3>Дисциплина коммуникаций</h3>
+                    <p>Партнёры и команда должны узнавать об изменениях первыми от вас. Недостаток переговоров нужного уровня смертелен для проекта.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rules">
+        <div class="container">
+            <div class="rules-header">
+                <h2>База знаний: 100 правил</h2>
+            </div>
+            
+            <div class="controls">
+                <div class="search-box">
+                    <!-- Search Icon -->
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="searchInput" placeholder="Поиск по номеру или тексту правила (например: 'риски' или '42')...">
+                </div>
+                <div class="filters" id="categoryFilters">
+                    <button class="filter-btn active" data-category="all">Все правила</button>
+                    <button class="filter-btn" data-category="leadership">Лидерство и этика</button>
+                    <button class="filter-btn" data-category="planning">Планирование и бюджет</button>
+                    <button class="filter-btn" data-category="communication">Коммуникации и отчёты</button>
+                    <button class="filter-btn" data-category="team">Команда и персонал</button>
+                    <button class="filter-btn" data-category="contracts">Контракты и субподрядчики</button>
+                    <button class="filter-btn" data-category="engineering">Инженерия и технологии</button>
+                    <button class="filter-btn" data-category="management">Высшее руководство</button>
+                    <button class="filter-btn" data-category="risk">Риски и решения</button>
+                </div>
+            </div>
+
+            <div class="counter" id="rulesCounter">Показано 100 из 100 правил</div>
+            <div class="rules-grid" id="rulesGrid">
+                <!-- Rules will be injected here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <section class="conclusion">
+        <div class="container">
+            <h2>Неудача — это не ошибка</h2>
+            <p>Неудача — это ошибка, которую вы не смогли исправить. Всегда разрабатывайте планы для ситуаций с высокими рисками. Никогда не оправдывайтесь — представляйте план действий.</p>
+            <a href="#hero" class="btn">
+                Вернуться к началу
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="container">
+            <p>Оригинальный источник: <a href="https://rolandwanner.com/wp-content/uploads/2020/08/100-rules-for-nasa-project-managers-en.pdf" target="_blank">One Hundred Rules for NASA Project Managers (Jerry Madden, NASA Goddard Space Flight Center)</a></p>
+            <p style="margin-top: 24px; font-family: var(--font-mono); font-size: 0.75rem;">© 2026 NASA PM Rules Landing. Ready for GitHub Pages.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data: 100 Rules (Condensed for readability, meaning preserved)
+        const categories = {
+            leadership: "Лидерство и этика",
+            planning: "Планирование и бюджет",
+            communication: "Коммуникации и отчёты",
+            team: "Команда и персонал",
+            contracts: "Контракты и субподрядчики",
+            engineering: "Инженерия и технологии",
+            management: "Высшее руководство",
+            risk: "Риски и решения"
+        };
+
+        const rulesData = [
+            { id: 1, cat: "leadership", text: "Руководитель должен лично посещать участников проекта и знать всех ключевых менеджеров и исполнителей." },
+            { id: 2, cat: "leadership", text: "Изучите мотивацию участников: их системы премирования, регламенты и корпоративную культуру." },
+            { id: 3, cat: "leadership", text: "Принципы управления неизменны, меняются лишь инструменты. Найдите нужных людей и путь к цели." },
+            { id: 4, cat: "leadership", text: "Будьте честны и справедливы. Репутация важнее сиюминутной выгоды, вы будете работать с этими людьми снова." },
+            { id: 5, cat: "leadership", text: "Руководитель не должен быть бездушным, нерешительным или пустословящим." },
+            { id: 6, cat: "leadership", text: "Полная безопасность не характерна для руководителя проекта; часто это шаг к новому назначению или риск неудачи." },
+            { id: 7, cat: "leadership", text: "Не ждите, что другие решат ваши проблемы. Вас наняли именно для того, чтобы вы их решали." },
+            { id: 8, cat: "leadership", text: "Выкроите время на анализ последствий своих действий, не погружайтесь только в текущую текучку." },
+            { id: 9, cat: "leadership", text: "Руководитель может не знать, как выполнять работу, но он обязан точно знать, чего он хочет." },
+            { id: 10, cat: "leadership", text: "Удача предпочитает компетентных и трудолюбивых, но она играет существенную роль в успехе." },
+            { id: 11, cat: "leadership", text: "Никогда не относитесь пренебрежительно к участникам проекта. Это вредит делу." },
+            { id: 12, cat: "leadership", text: "Создайте среду, где персонал может открыто говорить о ваших ошибках без страха." },
+            { id: 13, cat: "leadership", text: "Руководитель, пытающийся быть и системным инженером, и финансовым менеджером, обречён на провал." },
+            { id: 14, cat: "leadership", text: "Большинство руководителей преуспевают за счёт усилий и навыков своего персонала, а не только своих." },
+            { id: 15, cat: "planning", text: "Семена будущих проблем закладываются на ранних стадиях. Предварительное планирование жизненно важно." },
+            { id: 16, cat: "communication", text: "Держите партнёров в курсе событий. Они должны узнавать об изменениях первыми от вас, а не со стороны." },
+            { id: 17, cat: "communication", text: "Переговоры — лучший способ понять техническую проблему. Недостаток переговоров нужного уровня смертелен." },
+            { id: 18, cat: "communication", text: "Обеспечьте адекватный уровень дискуссии и взаимопонимания, особенно в международных или кросс-функциональных командах." },
+            { id: 19, cat: "communication", text: "Вы не можете руководить, не понимая языка и терминологии области, которой управляете." },
+            { id: 20, cat: "team", text: "Наблюдайте за персоналом. Люди должны знать, что вы не потерпите плохой работы." },
+            { id: 21, cat: "team", text: "Учитывайте, что новое поколение может быть более заинтересовано в процессе, чем в результате. Учитывайте обе возможности." },
+            { id: 22, cat: "team", text: "Хорошие технические специалисты и инспекторы качества важнее любых бумаг и отчётов." },
+            { id: 23, cat: "team", text: "Источником большинства проблем являются люди. Знайте их реальные слабые места." },
+            { id: 24, cat: "team", text: "Берегите трудоголиков от перегрузки и выгорания, контролируйте их загрузку." },
+            { id: 25, cat: "team", text: "Обсуждайте внутреннюю поддержку на самом нижнем уровне, непосредственно с исполнителями." },
+            { id: 26, cat: "team", text: "Если кто-то не смотрит, не спрашивает и не анализирует, попросите его уйти из проекта." },
+            { id: 27, cat: "team", text: "Цените время персонала. Ограждайте команду от ненужной работы и бессмысленных совещаний." },
+            { id: 28, cat: "team", text: "Люди, только контролирующие работу, но не помогающие её выполнять, не знают, что происходит на самом деле." },
+            { id: 29, cat: "team", text: "Лучшая мотивация — предоставить человеку возможность управлять своими проблемами, но и простая похвала работает." },
+            { id: 30, cat: "team", text: "Некомпетентные специалисты обычно избегают демонстрации своей работы." },
+            { id: 31, cat: "team", text: "Берегите узкопрофильных высококвалифицированных специалистов, но старайтесь завершать их задачи как можно быстрее." },
+            { id: 32, cat: "team", text: "Если люди делают работу плохо, скорее всего, они просто не знают, как это сделать правильно или что от них ожидается." },
+            { id: 33, cat: "team", text: "При наборе дополнительных людей действуйте осторожно, как повар, солящий суп, чтобы не пересолить команду." },
+            { id: 34, cat: "communication", text: "Максимально используйте существующие системы стандартных докладов, однажды настроенные, они будут работать." },
+            { id: 35, cat: "communication", text: "Готовьте наборы слайдов и данных так, чтобы их можно было гибко перетасовывать для разных презентаций." },
+            { id: 36, cat: "communication", text: "Ничего не скрывайте от руководства. Устанавливайте только факты, без оправданий." },
+            { id: 37, cat: "communication", text: "Поддерживайте актуальные наборы технических данных для быстрой реакции на внешние проверки." },
+            { id: 38, cat: "communication", text: "Никогда не обрывайте подчинённых публично и не отменяйте свои прежние решения при посторонних." },
+            { id: 39, cat: "communication", text: "Отчёты пишутся для того, кому они предназначены. Если он не узнает ничего нового, отчёт неудачен." },
+            { id: 40, cat: "communication", text: "Оптимальное количество участников рабочего совещания — не более шести человек." },
+            { id: 41, cat: "communication", text: "Представляйте данные просто, в расчёте на человека, немного понимающего проблему. Не пытайтесь потрясти интеллект." },
+            { id: 42, cat: "communication", text: "Руководители, полагающиеся только на бумаги при подготовке отчётов, часто терпят неудачу." },
+            { id: 43, cat: "communication", text: "Документы статичны и быстро устаревают. Не заменяйте ими реальные знания о ходе проекта." },
+            { id: 44, cat: "communication", text: "Наличие ежемесячных отчётов не является поводом опускать детали в годовом отчёте." },
+            { id: 45, cat: "communication", text: "Используйте сокращения и аббревиатуры в презентациях крайне осторожно, чтобы не запутать аудиторию." },
+            { id: 46, cat: "communication", text: "Боритесь с составлением ненужных документов только тогда, когда это действительно сэкономит значительные силы и время." },
+            { id: 47, cat: "contracts", text: "Руководитель проекта должен быть движущей силой контрактов, гарантируя, что субподрядчик выполнит работу в срок и с качеством." },
+            { id: 48, cat: "contracts", text: "Оплата контрактов — инструмент дисциплины. Используйте систему количественной оценки управления проектом." },
+            { id: 49, cat: "contracts", text: "Моральный уровень персонала подрядчика критически важен. Играйте активную роль в его мотивации." },
+            { id: 50, cat: "contracts", text: "Дружеские отношения с субподрядчиком прекрасны, но они не должны подвергать опасности вашу объективность." },
+            { id: 51, cat: "contracts", text: "Помните: каждый ваш служащий стоит по крайней мере одного человека на контракте в год." },
+            { id: 52, cat: "contracts", text: "Если субподрядчик относится к вам пренебрежительно, он выделит на ваш проект своих самых слабых специалистов." },
+            { id: 53, cat: "contracts", text: "Никогда не изменяйте планы субподрядчика, если только они не совсем плохи и не вызовут значительного роста расходов." },
+            { id: 54, cat: "contracts", text: "Основная задача субподрядчика — доставлять удовольствие заказчику, выполняя работу в срок, в рамках бюджета и с высоким качеством." },
+            { id: 55, cat: "engineering", text: "В инженерных работах переделки обычны. Старайтесь добиваться применения максимально простых решений." },
+            { id: 56, cat: "engineering", text: "Первые признаки проблем в инжиниринге — отставание от графика и отклонение кривой затрат. Инженеры узнают об этом последними." },
+            { id: 57, cat: "engineering", text: "Используйте системных инженеров и разработчиков как мощный ресурс для решения проблем проекта." },
+            { id: 58, cat: "engineering", text: "Не забывайте, что учёные и их заказчики часто имеют более лёгкий доступ к высшему руководству, чем вы." },
+            { id: 59, cat: "engineering", text: "Учёные будут работать с вами, если будут уверены, что вы говорите им правду, даже при сокращении их планов." },
+            { id: 60, cat: "engineering", text: "В космическом бизнесе нет случаев возврата запущенных блоков. Персонал, испытывающий оборудование, может не понимать принцип его работы." },
+            { id: 61, cat: "engineering", text: "Большая часть оборудования изготавливается не так, как планировал конструктор, из-за плохого понимания спецификаций." },
+            { id: 62, cat: "engineering", text: "Не применять современные компьютерные системы — ошибка. Но забывать, что они лишь моделируют мышление, — ещё большая." },
+            { id: 63, cat: "engineering", text: "Никогда не отказывайтесь от уже работающей версии ПО ради новой. Всегда имейте план на случай непредвиденных обстоятельств." },
+            { id: 64, cat: "engineering", text: "Модели компьютеров могут скрывать недостатки, не последним из которых являются неверные исходные данные." },
+            { id: 65, cat: "engineering", text: "Не теряйте практический опыт. Сейчас наверняка знает, как работает электроника, только компьютер, и он не рассказывает об этом." },
+            { id: 66, cat: "management", text: "Не предполагайте, что знаете, почему высшее руководство предпринимает те или иные действия. Если не знаете — спросите." },
+            { id: 67, cat: "management", text: "Знайте своих руководителей: некоторые любят хорошую шутку, другие любят шутить только сами." },
+            { id: 68, cat: "management", text: "Если руководитель настаивает на своём решении, выполните его и сделайте всё возможное для успешного результата." },
+            { id: 69, cat: "management", text: "Никогда не предлагайте руководителю принять решение, которое вы могли бы принять сами, исходя из своих полномочий." },
+            { id: 70, cat: "management", text: "Вы и руководитель программы должны работать как одна команда. Он — ваш адвокат в штаб-квартире." },
+            { id: 71, cat: "management", text: "Знайте, кто принимает решения на уровне программы, и попытайтесь установить с этим человеком контакт." },
+            { id: 72, cat: "planning", text: "Все соответствуют бюджету и графику до тех пор, пока придерживаются основных правил, вроде кривой нарастания затрат." },
+            { id: 73, cat: "planning", text: "Более высокие первоначальные оценки не снизят затраты, но улучшат деловую репутацию, если только не будут снижены риски." },
+            { id: 74, cat: "planning", text: "Все проблемы можно разрешить вовремя, если в графике есть достаточные резервы на непредвиденные обстоятельства." },
+            { id: 75, cat: "planning", text: "В современной среде с фиксированной ценой запрос на перенос сроков становится смерти подобен." },
+            { id: 76, cat: "planning", text: "Удивительно, как много важной помощи можно получить от других центров или коллег с помощью простой просьбы." },
+            { id: 77, cat: "planning", text: "Не делайте из информации о проекте секрета. Каждый сможет принять более правильное решение, видя полную картину." },
+            { id: 78, cat: "planning", text: "Никогда не требуйте от других программ поделиться с вами финансированием. Продайте что-либо из имеющегося в пользу своей программы." },
+            { id: 79, cat: "planning", text: "«Следующий год» с нормальным финансированием и графиком работ наступит только на пятидесятом году вашей карьеры. Не ждите его." },
+            { id: 80, cat: "management", text: "Помните, кто ваш заказчик и каковы его цели. Согласовывайте с ним все существенные изменения." },
+            { id: 81, cat: "management", text: "Инструкции написаны такими же служащими, как вы. Вы можете возражать, если они лишены смысла, и часто добьётесь корректировки." },
+            { id: 82, cat: "risk", text: "Неправильное решение, принятое ранее, может быть пересмотрено. Правильное решение, принятое слишком поздно, ничего не изменит." },
+            { id: 83, cat: "risk", text: "Иногда лучший выход — ничего не предпринимать и просто слушать. Не работайте на тех, чьи проблемы решаете постоянно." },
+            { id: 84, cat: "risk", text: "Никогда не принимайте скоропалительных решений ради внешнего эффекта. Ознакомьтесь с действительным состоянием дел." },
+            { id: 85, cat: "leadership", text: "Порядочность означает, что ваши подчинённые доверяют вам." },
+            { id: 86, cat: "leadership", text: "Давить на слабые места вашего руководителя невыгодно для вас в долгосрочной перспективе." },
+            { id: 87, cat: "team", text: "Для успешного выполнения проекта необходима рабочая группа с наставником, который вызывает определённые действия." },
+            { id: 88, cat: "team", text: "Никогда не предполагайте, что кто-то знает или сделал нечто, кроме того, о чём вы его прямо просили." },
+            { id: 89, cat: "team", text: "В большинстве ситуаций лучше полагаться на удачу, чем на слабую поддержку. Нищие не могут выбирать." },
+            { id: 90, cat: "team", text: "Не удивляйтесь, что члены команды на основании фрагментарных данных будут приходить к неверным заключениям. Мозаику трудно сложить по одному элементу." },
+            { id: 91, cat: "team", text: "Всё, что вы сможете сделать для занятых высших руководителей и заказчиков, — это доставить им результат и радость." },
+            { id: 92, cat: "risk", text: "При неудаче: восстановите цепь событий, проверьте гипотезы. Не делайте выводов слишком быстро. Знайте, когда остановиться." },
+            { id: 93, cat: "risk", text: "Думайте о неудачах как о выученных на будущее уроках. Старайтесь применять их во время работы." },
+            { id: 94, cat: "risk", text: "Ошибка нормальна, неудача — нет. Неудача — это неисправленная ошибка. Всегда разрабатывайте планы для ситуаций с высокими рисками." },
+            { id: 95, cat: "risk", text: "Не было проекта, который не имел бы проблем в компонентах. Время и готовность реагировать — единственная защита." },
+            { id: 96, cat: "risk", text: "Практическая проверка всегда лучше, чем теоретические знания. Испытания всегда показывают то, что хотят." },
+            { id: 97, cat: "risk", text: "Не бойтесь неудач, но всегда совершенствуйте квалификацию, в том числе знание того, кто может помочь в конкретном случае." },
+            { id: 98, cat: "risk", text: "Если кто-то что-то точно знает, будьте уверены, что он может быть неправ. Сомневайтесь." },
+            { id: 99, cat: "risk", text: "Будьте уверены, что всё оборудование отработано настолько, как будто бы его единственный образец обеспечивает успех всей миссии." },
+            { id: 100, cat: "risk", text: "Никогда не оправдывайтесь. Вместо этого представьте план действий, которые необходимо предпринять." }
+        ];
+
+        // DOM Elements
+        const rulesGrid = document.getElementById('rulesGrid');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilters = document.getElementById('categoryFilters');
+        const rulesCounter = document.getElementById('rulesCounter');
+
+        // State
+        let currentCategory = 'all';
+        let searchQuery = '';
+
+        // Render Function
+        function renderRules() {
+            rulesGrid.innerHTML = '';
+            
+            const filtered = rulesData.filter(rule => {
+                const matchesCategory = currentCategory === 'all' || rule.cat === currentCategory;
+                const matchesSearch = rule.text.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                                      rule.id.toString().includes(searchQuery);
+                return matchesCategory && matchesSearch;
+            });
+
+            rulesCounter.textContent = `Показано ${filtered.length} из ${rulesData.length} правил`;
+
+            if (filtered.length === 0) {
+                rulesGrid.innerHTML = '<div class="no-results">Правила не найдены. Попробуйте изменить запрос.</div>';
+                return;
+            }
+
+            filtered.forEach((rule, index) => {
+                const card = document.createElement('div');
+                card.className = 'rule-card';
+                card.innerHTML = `
+                    <div class="rule-category">${categories[rule.cat]}</div>
+                    <div class="rule-number">ПРАВИЛО ${String(rule.id).padStart(3, '0')}</div>
+                    <div class="rule-text">${rule.text}</div>
+                `;
+                
+                // Staggered animation delay
+                card.style.transitionDelay = `${index * 0.02}s`;
+                rulesGrid.appendChild(card);
+
+                // Trigger reflow for animation
+                setTimeout(() => {
+                    card.classList.add('visible');
+                }, 50);
+            });
+        }
+
+        // Event Listeners
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value.trim();
+            renderRules();
+        });
+
+        categoryFilters.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                e.target.classList.add('active');
+                currentCategory = e.target.dataset.category;
+                renderRules();
+            }
+        });
+
+        // Intersection Observer for scroll animations (Highlights)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.highlight-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
+            observer.observe(el);
+        });
+
+        // Initial Render
+        renderRules();
+    </script>
+</body>
+</html>
